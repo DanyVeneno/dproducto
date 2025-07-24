@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generación Product Designer | Yehiibhii Estudio</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", system-ui, -apple-system, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        overflow-x: hidden;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header */
+      header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+        padding: 1rem 0;
+        transition: all 0.3s ease;
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .nav-links a:hover {
+        color: #4ecdc4;
+        transform: translateY(-2px);
+      }
+
+      /* Hero Section */
+      .hero {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        opacity: 0.3;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+      }
+
+      .hero h1 {
+        font-size: 4rem;
+        font-weight: 900;
+        margin-bottom: 1rem;
+        background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: glow 2s ease-in-out infinite alternate;
+      }
+
+      @keyframes glow {
+        from {
+          filter: drop-shadow(0 0 10px rgba(255, 107, 107, 0.3));
+        }
+        to {
+          filter: drop-shadow(0 0 20px rgba(78, 205, 196, 0.5));
+        }
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+      }
+
+      .cta-button {
+        background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+        border: none;
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: white;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+      }
+
+      .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
+      }
+
+      /* Floating elements */
+      .floating-elements {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+
+      .floating-element {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        animation: float 6s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-20px) rotate(180deg);
+        }
+      }
+
+      /* Stats Section */
+      .stats {
+        padding: 5rem 0;
+        background: rgba(0, 0, 0, 0.2);
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .stat-card {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 2rem;
+        border-radius: 20px;
+        text-align: center;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .stat-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      .stat-number {
+        font-size: 3rem;
+        font-weight: 900;
+        background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-label {
+        font-size: 1.1rem;
+        opacity: 0.9;
+      }
+
+      /* Skills Section */
+      .skills {
+        padding: 5rem 0;
+      }
+
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .skill-category {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 2rem;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .skill-category:hover {
+        transform: scale(1.05);
+      }
+
+      .skill-category h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #4ecdc4;
+      }
+
+      .skill-list {
+        list-style: none;
+      }
+
+      .skill-item {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .skill-item:hover {
+        padding-left: 1rem;
+        color: #4ecdc4;
+      }
+
+      /* Journey Section */
+      .journey {
+        padding: 5rem 0;
+        background: rgba(0, 0, 0, 0.2);
+      }
+
+      .timeline {
+        position: relative;
+        margin-top: 3rem;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(to bottom, #ff6b6b, #4ecdc4);
+        transform: translateX(-50%);
+      }
+
+      .timeline-item {
+        position: relative;
+        margin: 2rem 0;
+        opacity: 0;
+        animation: slideIn 0.6s ease forwards;
+      }
+
+      .timeline-item:nth-child(even) {
+        animation-delay: 0.2s;
+      }
+
+      .timeline-item:nth-child(odd) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes slideIn {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .timeline-content {
+        width: 45%;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 2rem;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        position: relative;
+      }
+
+      .timeline-item:nth-child(even) .timeline-content {
+        margin-left: 55%;
+      }
+
+      .timeline-dot {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 20px;
+        height: 20px;
+        background: #4ecdc4;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 20px rgba(78, 205, 196, 0.5);
+      }
+
+      /* Interactive Elements */
+      .interactive-demo {
+        padding: 5rem 0;
+        text-align: center;
+      }
+
+      .demo-container {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 3rem;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        margin-top: 2rem;
+      }
+
+      .design-tools {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin: 2rem 0;
+        flex-wrap: wrap;
+      }
+
+      .tool-card {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 1.5rem;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+      }
+
+      .tool-card:hover,
+      .tool-card.active {
+        background: rgba(78, 205, 196, 0.2);
+        border-color: #4ecdc4;
+        transform: scale(1.1);
+      }
+
+      .tool-icon {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .canvas {
+        width: 100%;
+        height: 300px;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 15px;
+        margin-top: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #333;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .canvas:hover {
+        transform: scale(1.02);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Footer */
+      footer {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 2rem 0;
+        text-align: center;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 1rem;
+        background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .section-subtitle {
+        text-align: center;
+        font-size: 1.1rem;
+        opacity: 0.8;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .timeline::before {
+          left: 20px;
+        }
+
+        .timeline-content {
+          width: calc(100% - 60px);
+          margin-left: 60px !important;
+        }
+
+        .design-tools {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="container">
+        <div class="logo">PD Gen</div>
+        <ul class="nav-links">
+          <li><a href="#home">Inicio</a></li>
+          <li><a href="#stats">Estadísticas</a></li>
+          <li><a href="#skills">Habilidades</a></li>
+          <li><a href="#journey">Evolución</a></li>
+          <li><a href="#demo">Demo</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section id="home" class="hero">
+        <div class="floating-elements">
+          <div
+            class="floating-element"
+            style="top: 20%; left: 10%; animation-delay: 0s"
+          ></div>
+          <div
+            class="floating-element"
+            style="top: 60%; right: 10%; animation-delay: 2s"
+          ></div>
+          <div
+            class="floating-element"
+            style="top: 40%; left: 80%; animation-delay: 4s"
+          ></div>
+        </div>
+        <div class="hero-content">
+          <h1>Generación Product Designer</h1>
+          <p>Explorando el futuro del diseño de productos en la era digital</p>
+          <button class="cta-button" onclick="scrollToSection('stats')">
+            Descubre Más
+          </button>
+        </div>
+      </section>
+
+      <section id="stats" class="stats">
+        <div class="container">
+          <h2 class="section-title">El Impacto del Product Design</h2>
+          <p class="section-subtitle">
+            Datos que muestran la evolución y relevancia del diseño de productos
+            en la actualidad
+          </p>
+          <div class="stats-grid">
+            <div class="stat-card" onclick="animateCard(this)">
+              <div class="stat-number">92M</div>
+              <div class="stat-label">
+                Nuevos empleos digitales previstos para 2030
+              </div>
+            </div>
+            <div class="stat-card" onclick="animateCard(this)">
+              <div class="stat-number">156%</div>
+              <div class="stat-label">
+                Crecimiento en demanda de UX/UI designers
+              </div>
+            </div>
+            <div class="stat-card" onclick="animateCard(this)">
+              <div class="stat-number">$85K</div>
+              <div class="stat-label">
+                Salario promedio anual de Product Designer
+              </div>
+            </div>
+            <div class="stat-card" onclick="animateCard(this)">
+              <div class="stat-number">73%</div>
+              <div class="stat-label">
+                Empresas que priorizan diseño centrado en usuario
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills" class="skills">
+        <div class="container">
+          <h2 class="section-title">Habilidades Clave</h2>
+          <p class="section-subtitle">
+            Las competencias esenciales para los product designers del futuro
+          </p>
+          <div class="skills-grid">
+            <div class="skill-category">
+              <h3>🎨 Diseño Visual</h3>
+              <ul class="skill-list">
+                <li class="skill-item">Principios de diseño</li>
+                <li class="skill-item">Teoría del color</li>
+                <li class="skill-item">Tipografía</li>
+                <li class="skill-item">Sistemas de diseño</li>
+                <li class="skill-item">Prototipado</li>
+              </ul>
+            </div>
+            <div class="skill-category">
+              <h3>🔬 Investigación UX</h3>
+              <ul class="skill-list">
+                <li class="skill-item">User personas</li>
+                <li class="skill-item">Journey mapping</li>
+                <li class="skill-item">Usability testing</li>
+                <li class="skill-item">Análisis de datos</li>
+                <li class="skill-item">Entrevistas de usuario</li>
+              </ul>
+            </div>
+            <div class="skill-category">
+              <h3>⚡ Tecnología</h3>
+              <ul class="skill-list">
+                <li class="skill-item">HTML/CSS básico</li>
+                <li class="skill-item">Herramientas de diseño</li>
+                <li class="skill-item">Colaboración con devs</li>
+                <li class="skill-item">AR/VR interfaces</li>
+                <li class="skill-item">AI/ML en diseño</li>
+              </ul>
+            </div>
+            <div class="skill-category">
+              <h3>🎯 Estrategia</h3>
+              <ul class="skill-list">
+                <li class="skill-item">Pensamiento sistémico</li>
+                <li class="skill-item">Métricas de negocio</li>
+                <li class="skill-item">Comunicación efectiva</li>
+                <li class="skill-item">Liderazgo de producto</li>
+                <li class="skill-item">Visión de producto</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="journey" class="journey">
+        <div class="container">
+          <h2 class="section-title">Evolución del Product Design</h2>
+          <p class="section-subtitle">
+            El camino desde el diseño gráfico hasta el diseño de productos
+            holístico
+          </p>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-content">
+                <h3>2000s - Era del Diseño Web</h3>
+                <p>
+                  Enfoque en diseño visual y usabilidad básica. Los diseñadores
+                  se centraban principalmente en la estética y la navegación.
+                </p>
+              </div>
+              <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-content">
+                <h3>2010s - Revolución UX</h3>
+                <p>
+                  Surge el diseño centrado en el usuario. Metodologías como
+                  Design Thinking y Lean UX se vuelven fundamentales.
+                </p>
+              </div>
+              <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-content">
+                <h3>2015s - Era del Product Design</h3>
+                <p>
+                  Los diseñadores se involucran en toda la estrategia de
+                  producto, no solo en la interfaz. Surge el concepto de product
+                  designer.
+                </p>
+              </div>
+              <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-content">
+                <h3>2020s - Diseño Holístico</h3>
+                <p>
+                  Integración de AI/ML, realidad aumentada y diseño de
+                  servicios. El product designer como estratega de experiencia
+                  completa.
+                </p>
+              </div>
+              <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-content">
+                <h3>2030s - Futuro del Diseño</h3>
+                <p>
+                  Diseño predictivo, interfaces neurales y experiencias
+                  inmersivas. Los product designers como arquitectos de
+                  realidades digitales.
+                </p>
+              </div>
+              <div class="timeline-dot"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="demo" class="interactive-demo">
+        <div class="container">
+          <h2 class="section-title">Demo Interactivo</h2>
+          <p class="section-subtitle">
+            Experimenta con las herramientas fundamentales del product design
+          </p>
+          <div class="demo-container">
+            <div class="design-tools">
+              <div
+                class="tool-card"
+                data-tool="research"
+                onclick="selectTool(this)"
+              >
+                <div class="tool-icon">🔍</div>
+                <div>Research</div>
+              </div>
+              <div
+                class="tool-card"
+                data-tool="wireframe"
+                onclick="selectTool(this)"
+              >
+                <div class="tool-icon">📐</div>
+                <div>Wireframe</div>
+              </div>
+              <div
+                class="tool-card"
+                data-tool="prototype"
+                onclick="selectTool(this)"
+              >
+                <div class="tool-icon">🎨</div>
+                <div>Prototype</div>
+              </div>
+              <div
+                class="tool-card"
+                data-tool="test"
+                onclick="selectTool(this)"
+              >
+                <div class="tool-icon">🧪</div>
+                <div>Test</div>
+              </div>
+            </div>
+            <div
+              class="canvas"
+              id="design-canvas"
+              onclick="createDesignElement()"
+            >
+              Selecciona una herramienta y haz clic para crear elementos de
+              diseño
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>
+          &copy; 2025 Generación Product Designer. Diseñando el futuro, hoy.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // Smooth scrolling
+      function scrollToSection(sectionId) {
+        document.getElementById(sectionId).scrollIntoView({
+          behavior: "smooth",
+        });
+      }
+
+      // Animate stat cards
+      function animateCard(card) {
+        card.style.transform = "scale(1.1) rotate(5deg)";
+        setTimeout(() => {
+          card.style.transform = "scale(1)";
+        }, 300);
+      }
+
+      // Interactive demo functionality
+      let selectedTool = null;
+      let elementCount = 0;
+
+      function selectTool(toolCard) {
+        // Remove active class from all tools
+        document.querySelectorAll(".tool-card").forEach((card) => {
+          card.classList.remove("active");
+        });
+
+        // Add active class to selected tool
+        toolCard.classList.add("active");
+        selectedTool = toolCard.dataset.tool;
+
+        // Update canvas text
+        const canvas = document.getElementById("design-canvas");
+        const toolMessages = {
+          research:
+            "Modo Research: Haz clic para crear user personas y mapas de empatía",
+          wireframe:
+            "Modo Wireframe: Haz clic para crear estructuras y layouts",
+          prototype:
+            "Modo Prototype: Haz clic para crear interacciones y animaciones",
+          test: "Modo Test: Haz clic para crear escenarios de prueba",
+        };
+        canvas.textContent = toolMessages[selectedTool];
+      }
+
+      function createDesignElement() {
+        if (!selectedTool) {
+          alert("¡Selecciona una herramienta primero!");
+          return;
+        }
+
+        const canvas = document.getElementById("design-canvas");
+        elementCount++;
+
+        const element = document.createElement("div");
+        element.style.position = "absolute";
+        element.style.padding = "10px";
+        element.style.borderRadius = "8px";
+        element.style.fontSize = "14px";
+        element.style.fontWeight = "bold";
+        element.style.cursor = "pointer";
+        element.style.transition = "all 0.3s ease";
+        element.style.left = Math.random() * 70 + 15 + "%";
+        element.style.top = Math.random() * 60 + 20 + "%";
+
+        const elementTypes = {
+          research: {
+            text: `Persona ${elementCount}`,
+            bg: "rgba(255, 107, 107, 0.8)",
+            color: "white",
+          },
+          wireframe: {
+            text: `Frame ${elementCount}`,
+            bg: "rgba(78, 205, 196, 0.8)",
+            color: "white",
+          },
+          prototype: {
+            text: `Proto ${elementCount}`,
+            bg: "rgba(69, 183, 209, 0.8)",
+            color: "white",
+          },
+          test: {
+            text: `Test ${elementCount}`,
+            bg: "rgba(255, 193, 7, 0.8)",
+            color: "black",
+          },
+        };
+
+        const type = elementTypes[selectedTool];
+        element.textContent = type.text;
+        element.style.background = type.bg;
+        element.style.color = type.color;
+
+        // Add click to remove functionality
+        element.onclick = function (e) {
+          e.stopPropagation();
+          element.style.transform = "scale(0)";
+          setTimeout(() => element.remove(), 300);
+        };
+
+        // Add hover effect
+        element.onmouseenter = function () {
+          element.style.transform = "scale(1.1)";
+        };
+        element.onmouseleave = function () {
+          element.style.transform = "scale(1)";
+        };
+
+        canvas.appendChild(element);
+
+        // Animate in
+        element.style.transform = "scale(0)";
+        setTimeout(() => {
+          element.style.transform = "scale(1)";
+        }, 100);
+      }
+
+      // Header scroll effect
+      window.addEventListener("scroll", () => {
+        const header = document.querySelector("header");
+        if (window.scrollY > 100) {
+          header.style.background = "rgba(0, 0, 0, 0.3)";
+        } else {
+          header.style.background = "rgba(0, 0, 0, 0.1)";
+        }
+      });
+
+      // Intersection Observer for animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+          }
+        });
+      }, observerOptions);
+
+      // Observe timeline items
+      document.querySelectorAll(".timeline-item").forEach((item) => {
+        item.style.opacity = "0";
+        item.style.transform = "translateY(30px)";
+        observer.observe(item);
+      });
+
+      // Add floating animation to hero elements
+      function createFloatingElements() {
+        const hero = document.querySelector(".hero");
+        for (let i = 0; i < 5; i++) {
+          const element = document.createElement("div");
+          element.className = "floating-element";
+          element.style.left = Math.random() * 100 + "%";
+          element.style.top = Math.random() * 100 + "%";
+          element.style.animationDelay = Math.random() * 6 + "s";
+          document.querySelector(".floating-elements").appendChild(element);
+        }
+      }
+
+      // Initialize
+      document.addEventListener("DOMContentLoaded", () => {
+        createFloatingElements();
+      });
+    </script>
+  </body>
+</html>
